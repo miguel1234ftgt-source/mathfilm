@@ -9,8 +9,10 @@ Todavía no se conoce Manim.
 
 from __future__ import annotations
 from abc import ABC
+from abc import abstractmethod
 from dataclasses import dataclass
 from ..core.types import Progress
+from ..engine.scene_adapter import SceneAdapter
 
 @dataclass(
     slots=True,
@@ -32,3 +34,12 @@ class Action(ABC):
     """
     start: Progress = Progress(0.0)
     end: Progress = Progress(1.0)
+
+    @abstractmethod
+    def execute(
+        self,
+        scene: SceneAdapter
+    ) -> None:
+        """
+        Ejecuta la acción
+        """
