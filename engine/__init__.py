@@ -1,15 +1,10 @@
-#mathfilm/engine/__init__.py
+# mathfilm/engine/__init__.py
 
 """
-Integración de MathFilm con el motor gráfico.
+Infraestructura gráfica de MathFilm.
+
+Los componentes concretos se importan desde sus módulos para
+evitar ciclos de importación durante la inicialización.
 """
 
-from ..engine.manim_scene_adapter import ManimSceneAdapter
-from ..engine.scene_adapter import SceneAdapter
-from ..engine.video_scene import VideoScene
-
-__all__ = [
-    "ManimSceneAdapter",
-    "SceneAdapter",
-    "VideoScene",
-]
+__all__: list[str] = []

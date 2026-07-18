@@ -11,9 +11,9 @@ Una sección agrupa:
 from __future__ import annotations
 from dataclasses import dataclass, field
 
-from ..core.action import Action
-from ..core.narration import Narration
-from ..core.types import Seconds
+from .action import Action
+from .narration import Narration
+from .types import Seconds
 
 @dataclass(
     slots=True,

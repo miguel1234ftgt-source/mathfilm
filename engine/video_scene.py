@@ -7,12 +7,15 @@ Escena base para MathFilm
 from __future__ import annotations
 import manim
 
-from ..core.director import Director
-from ..core.narration import Narration
-from ..core.section import Section
-from ..core.timeline import Timeline
 
-from ..engine.manim_scene_adapter import ManimSceneAdapter
+from mathfilm.core.director import Director
+from mathfilm.core.narration import Narration
+from mathfilm.core.section import Section
+from mathfilm.core.timeline import Timeline
+from mathfilm.engine.manim_scene_adapter import (
+    ManimSceneAdapter,
+)
+
 
 class VideoScene(manim.Scene):
     """

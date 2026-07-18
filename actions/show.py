@@ -7,9 +7,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 import manim
 
-from core.action import Action
-from core.types import Seconds
-from engine.scene_adapter import SceneAdapter
+from ..core.action import Action
+from ..core.types import Seconds
+from ..engine.scene_adapter import SceneAdapter
 
 @dataclass(slots=True, kw_only=True)
 class Show(Action):

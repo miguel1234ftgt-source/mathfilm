@@ -1,21 +1,20 @@
-#mathfilm/__init__.py
+# mathfilm/__init__.py
 
 """
 Interfaz pública principal de MathFilm v0.3.
 """
 
-from actions import Show
-from core import (
+from mathfilm.actions.show import Show
+from mathfilm.core.narration import Narration
+from mathfilm.core.section import Section
+from mathfilm.core.timeline import Timeline
+from mathfilm.core.types import (
     Identifier,
-    Narration,
     Progress,
     Seconds,
-    Section,
-    Timeline,
-    WordsPerMinute
+    WordsPerMinute,
 )
-
-from engine import VideoScene
+from mathfilm.engine.video_scene import VideoScene
 
 __version__ = "0.3.0"
 
@@ -25,6 +24,8 @@ __all__ = [
     "Progress",
     "Seconds",
     "Section",
+    "Show",
     "Timeline",
-    "WordsPerMinute"
+    "VideoScene",
+    "WordsPerMinute",
 ]

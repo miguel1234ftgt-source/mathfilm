@@ -11,10 +11,10 @@ el protocolo SceneAdapter
 
 from __future__ import annotations
 
-from ..core.section import Section
-from ..core.timeline import Timeline
-from ..core.types import Seconds
-from ..engine.scene_adapter import SceneAdapter
+from mathfilm.core.section import Section
+from mathfilm.core.timeline import Timeline
+from mathfilm.core.types import Seconds
+from mathfilm.engine.scene_adapter import SceneAdapter
 
 
 class Director:

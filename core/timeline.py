@@ -8,7 +8,7 @@ La planificación interna de cada sección se delega en Section.
 
 from __future__ import annotations
 from dataclasses import dataclass, field
-from ..core.section import Section
+from .section import Section
 
 @dataclass(slots=True)
 class Timeline:

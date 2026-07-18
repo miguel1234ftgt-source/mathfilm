@@ -4,12 +4,12 @@
 Objetos fundamentales de MathFilm
 """
 
-from ..core.action import Action
-from ..core.director import Director
-from ..core.narration import Narration
-from ..core.section import Section
-from ..core.timeline import Timeline
-from ..core.types import Identifier, Progress, Seconds, WordsPerMinute
+from .action import Action
+from .director import Director
+from .narration import Narration
+from .section import Section
+from .timeline import Timeline
+from .types import Identifier, Progress, Seconds, WordsPerMinute
 
 __all__ = [
      "Action",

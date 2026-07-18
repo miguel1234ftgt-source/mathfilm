@@ -3,6 +3,6 @@
 Acciones públicas disponibles en MathFilm.
 """
 
-from ..actions.show import Show
+from mathfilm.actions.show import Show
 
 __all__ = ["Show", ]
