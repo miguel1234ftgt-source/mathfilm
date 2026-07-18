@@ -1,0 +1,6 @@
+pyproject.toml
+mathfilm.egg-info/PKG-INFO
+mathfilm.egg-info/SOURCES.txt
+mathfilm.egg-info/dependency_links.txt
+mathfilm.egg-info/requires.txt
+mathfilm.egg-info/top_level.txt
