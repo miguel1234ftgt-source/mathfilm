@@ -24,11 +24,19 @@ class ManimSceneAdapter:
     def __init__(self, scene: manim.Scene) -> None:
         self._scene = scene
 
-    def play(self, *animations: Any) -> None:
+    def play(self, *animations: Any, run_time: float | None = None) -> None:
         """
         Reproduce animaciones mediante ``manim.Scene.play``.
         """
-        self._scene.play(*animations)
+
+        if run_time is None:
+            self._scene.play(*animations)
+            return
+
+        self._scene.play(
+            *animations,
+            run_time=run_time
+        )
 
     def wait(self, seconds: float) -> None:
         """

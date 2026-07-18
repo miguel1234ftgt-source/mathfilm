@@ -15,9 +15,17 @@ class SceneAdapter(Protocol):
     Interfaz mínima que debe implementar un adaptador gráfico.
     """
 
-    def play (self, *animations: Any) -> None:
+    def play (self, *animations: Any, run_time:float | None = None) -> None:
         """
         Reproduce una o varias animaciones
+
+        Parameters
+        ----------
+        animations
+            Animaciones que serán ejecutadas.
+        
+        run_time
+            Duración opcional de la reproducción.
         """
         ...
 

@@ -4,4 +4,14 @@
 Paquete de acciones de MathFilm.
 """
 
-__all__: list[str] = []
+from mathfilm.actions.hide import Hide
+from mathfilm.actions.move_to import MoveTo
+from mathfilm.actions.show import Show
+from mathfilm.actions.write import Write
+
+__all__: list[str] = [
+    "Hide",
+    "MoveTo",
+    "Show",
+    "Write",
+]
