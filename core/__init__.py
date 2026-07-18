@@ -1,24 +1,10 @@
-#mathfilm/core/__init__.py
+# mathfilm/core/__init__.py
 
 """
-Objetos fundamentales de MathFilm
+Núcleo independiente de MathFilm.
+
+Los objetos concretos deben importarse desde sus respectivos
+módulos para evitar dependencias circulares.
 """
 
-from .action import Action
-from .director import Director
-from .narration import Narration
-from .section import Section
-from .timeline import Timeline
-from .types import Identifier, Progress, Seconds, WordsPerMinute
-
-__all__ = [
-     "Action",
-    "Director",
-    "Identifier",
-    "Narration",
-    "Progress",
-    "Seconds",
-    "Section",
-    "Timeline",
-    "WordsPerMinute",
-]
+__all__: list[str] = []

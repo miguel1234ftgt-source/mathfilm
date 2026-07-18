@@ -5,7 +5,7 @@ Representación de un fragmento del guión.
 from __future__ import annotations
 from dataclasses import dataclass
 
-from .types import Identifier, Seconds, WordsPerMinute
+from mathfilm.core.types import Identifier, Seconds, WordsPerMinute
 
 DEFAULT_WPM = WordsPerMinute(145)
 

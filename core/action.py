@@ -15,7 +15,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
-from ..core.types import Progress, Seconds
+from .types import Progress, Seconds
 
 if TYPE_CHECKING:
     from ..engine.scene_adapter import SceneAdapter

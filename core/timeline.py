@@ -8,7 +8,7 @@ La planificación interna de cada sección se delega en Section.
 
 from __future__ import annotations
 from dataclasses import dataclass, field
-from .section import Section
+from mathfilm.core.section import Section
 
 @dataclass(slots=True)
 class Timeline:

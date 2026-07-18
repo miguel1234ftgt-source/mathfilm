@@ -1,8 +1,7 @@
-#mathfilm/actions/__init__.py
+# mathfilm/actions/__init__.py
+
 """
-Acciones públicas disponibles en MathFilm.
+Paquete de acciones de MathFilm.
 """
 
-from mathfilm.actions.show import Show
-
-__all__ = ["Show", ]
+__all__: list[str] = []
