@@ -12,37 +12,23 @@ from dataclasses import dataclass
 
 import manim
 
-from mathfilm.core.action import Action
-from mathfilm.core.types import Seconds
-from mathfilm.engine.scene_adapter import SceneAdapter
+from mathfilm.actions.base import ManimAction
 
 @dataclass(slots=True, kw_only=True)
-class Write(Action):
+class Write(ManimAction):
     """
-    Escribe progresivamente un objeto mediante ``manim.Write``.
+    Escribe progresivamente un objeto.
 
-    Parameters
-    ----------
-    mobject
-        Objeto de Manim que será escrito.
-
-    end
-        Final relativo de la acción dentro de la sección.
+    Es especialmente apropiada para textos y expresiones
+    matemáticas.
     """
 
     mobject: manim.VMobject
     
 
-    def execute(self, scene: SceneAdapter, duration: Seconds) -> None:
+    def build_animation(self) -> manim.Animation:
         """
-        Ejecuta la animación de escritura.
+        Construye la animación de escritura.
         """
 
-        animation = manim.Write(
-            self.mobject,
-        )
-
-        scene.play(
-            animation,
-            run_time=float(duration),
-            )
+        return manim.Write(self.mobject)

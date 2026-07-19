@@ -8,13 +8,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 import manim
 
-from mathfilm.core.action import Action
-from mathfilm.core.types import Seconds
-from mathfilm.engine.scene_adapter import SceneAdapter
+from mathfilm.actions.base import ManimAction
 
 
 @dataclass(slots=True, kw_only=True)
-class Hide(Action):
+class Hide(ManimAction):
     """
     Oculta un objeto mediante ``manim.FadeOut``.
 
@@ -22,23 +20,13 @@ class Hide(Action):
     ----------
     mobject
         Objeto que desaparecerá
-
-    start
-        Inicio relativo de la acción
-
-    end
-        Final relativo
     """
 
     mobject: manim.Mobject
 
-    def execute(self, scene: SceneAdapter, duration: Seconds) -> None:
+    def build_animation(self) -> manim.Animation:
         """
-        Ejecuta la transición de salida.
+        Construye la animación de salida.
         """
 
-        animation = manim.FadeOut(
-            self.mobject,
-        )
-
-        scene.play(animation, run_time=float(duration))
+        return manim.FadeOut(self.mobject)
