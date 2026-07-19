@@ -13,11 +13,11 @@ from dataclasses import dataclass
 
 import manim
 
-from mathfilm.actions.base import ManimAction
+from mathfilm.actions.composite import CompositeAction
 
 
 @dataclass(slots=True, kw_only=True)
-class Stagger(ManimAction):
+class Stagger(CompositeAction):
     """
     Ejecuta acciones con un retraso relativo entre sus inicios.
 
@@ -41,7 +41,6 @@ class Stagger(ManimAction):
     tiempo total de la composición.
     """
 
-    actions: tuple[ManimAction, ...]
     lag_ratio: float = 0.1
 
     def __post_init__(self) -> None:
@@ -49,40 +48,21 @@ class Stagger(ManimAction):
         Valida las acciones y el retraso relativo.
         """
 
-        super(Stagger, self).__post_init__()
+        super().__post_init__()
 
-        if not self.actions:
-            raise ValueError(
-                "Stagger necesita al menso una acción."
-            )
-        
         if not 0.0 <= self.lag_ratio <= 1.0:
             raise ValueError(
-                "lag_ratio debe econtrarse entre 0.0 y 1.0."
+                "Stagger.lag_ratio debe encontrarse entre "
+                "0.0 y 1.0. "
+                f"Valor recibido: {self.lag_ratio}"
             )
-        
-        for index, action in enumerate(self.actions):
-            if(
-                float(action.start) != 0.0
-                or float(action.end) != 1.0
-            ):
-                raise ValueError(
-                    "Las acciones internas de Stagger no deben "
-                    "definir start ni end. "
-                    f"Intervalo inválido en actions[{index}]."
-                )
     
     def build_animation(self) -> manim.Animation:
         """
         Construye la composición escalonada.
         """
 
-        animations = tuple(
-            action.build_animation()
-            for action in self.actions
-        )
-
         return manim.LaggedStart(
-            *animations,
-            lag_ratio=self.lag_ratio,
+            *self.build_animations(),
+            lag_ratio=self.lag_ratio
         )

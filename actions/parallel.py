@@ -10,11 +10,11 @@ from dataclasses import dataclass
 
 import manim
 
-from mathfilm.actions.base import ManimAction
+from mathfilm.actions.composite import CompositeAction
 
 
 @dataclass(slots=True, kw_only=True)
-class Parallel(ManimAction):
+class Parallel(CompositeAction):
     """
     Ejecuta varias acciones gráficas simultáneamente.
 
@@ -39,31 +39,10 @@ class Parallel(ManimAction):
     - ``end = 1.0``
     """
 
-    actions: tuple[ManimAction, ...]
-
-    def __post_init__(self) -> None:
-        """
-        Valida la acción compuesta y sus acciones internas.
-        """
-
-        super(Parallel, self).__post_init__()
-
-        if not self.actions:
-            raise ValueError("Parallel necesita al menos una acción.")
-
-        for index, action in enumerate(self.actions):
-            if float(action.start) != 0.0 or float(action.end) != 1.0:
-                raise ValueError(
-                    "Las acciones internas de Parallel no deben "
-                    "definir start ni end. "
-                    f"Intervalo inválido en actions[{index}]."
-                )
 
     def build_animation(self) -> manim.Animation:
         """
         Agrupa las animaciones para ejecutarlas simultáneamente.
         """
 
-        animations = [action.build_animation() for action in self.actions]
-
-        return manim.AnimationGroup(*animations, lag_ratio=0.0)
+        return manim.AnimationGroup(*self.build_animations(), lag_ratio=0.0)

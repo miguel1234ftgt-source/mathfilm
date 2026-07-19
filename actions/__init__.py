@@ -5,6 +5,7 @@ Acciones visuales disponibles en MathFilm.
 """
 
 from mathfilm.actions.base import ManimAction
+from mathfilm.actions.composite import CompositeAction
 from mathfilm.actions.create import Create
 from mathfilm.actions.hide import Hide
 from mathfilm.actions.move_to import MoveTo
@@ -16,6 +17,7 @@ from mathfilm.actions.transform import Transform
 from mathfilm.actions.write import Write
 
 __all__ = [
+    "CompositeAction",
     "Create",
     "Hide",
     "ManimAction",

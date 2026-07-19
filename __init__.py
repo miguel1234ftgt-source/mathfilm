@@ -1,7 +1,7 @@
 # mathfilm/__init__.py
 
 """
-Interfaz pública principal de MathFilm v0.6.
+Interfaz pública principal de MathFilm v0.6.1.
 """
 
 from mathfilm.actions.create import Create
@@ -24,7 +24,7 @@ from mathfilm.core.types import (
 )
 from mathfilm.engine.video_scene import VideoScene
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 
 __all__ = [
     "Create",
