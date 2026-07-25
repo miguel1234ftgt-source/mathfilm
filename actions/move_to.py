@@ -9,13 +9,13 @@ from dataclasses import dataclass
 
 import manim
 
-from mathfilm.actions.base import ManimAction
+from mathfilm.actions.target import TargetAction
+from mathfilm.actions.types import Point3D
 
-Position = tuple[float, float, float]
 
 
 @dataclass(slots=True, kw_only=True)
-class MoveTo(ManimAction):
+class MoveTo(TargetAction):
     """
     Mueve un objeto hacia una posición absoluta.
 
@@ -28,21 +28,7 @@ class MoveTo(ManimAction):
         Coordenadas finales ``(x, y, z)``.
     """
 
-    mobject: manim.Mobject
-    position: Position
+    position: Point3D 
 
-    def build_animation(self) -> manim.Animation:
-        """
-        Construye la animación de desplazamiento.
-        """
-
-        self.mobject.generate_target()
-
-        if self.mobject.target is None:
-            raise RuntimeError(
-                "Manim no generó un objeto objetivo para MoveTo."
-            )
-
-        self.mobject.target.move_to(self.position)
-
-        return manim.MoveToTarget(self.mobject)
+    def configure_target(self, target: manim.Mobject) -> None:
+        target.move_to(self.position) # type: ignore

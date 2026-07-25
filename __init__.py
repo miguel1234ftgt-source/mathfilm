@@ -1,14 +1,19 @@
 # mathfilm/__init__.py
 
 """
-Interfaz pública principal de MathFilm v0.6.1.
+Interfaz pública principal de MathFilm v0.7.0.
 """
 
 from mathfilm.actions.create import Create
 from mathfilm.actions.hide import Hide
 from mathfilm.actions.move_to import MoveTo
 from mathfilm.actions.parallel import Parallel
+from mathfilm.actions.rotate import Rotate
+from mathfilm.actions.scale import Scale
 from mathfilm.actions.sequence import Sequence
+from mathfilm.actions.set_color import SetColor
+from mathfilm.actions.set_opacity import SetOpacity
+from mathfilm.actions.shift import Shift
 from mathfilm.actions.show import Show
 from mathfilm.actions.stagger import Stagger
 from mathfilm.actions.transform import Transform
@@ -24,7 +29,7 @@ from mathfilm.core.types import (
 )
 from mathfilm.engine.video_scene import VideoScene
 
-__version__ = "0.6.1"
+__version__ = "0.7.0"
 
 __all__ = [
     "Create",
@@ -34,9 +39,14 @@ __all__ = [
     "Narration",
     "Parallel",
     "Progress",
+    "Rotate",
+    "Scale",
     "Seconds",
     "Section",
     "Sequence",
+    "SetColor",
+    "SetOpacity",
+    "Shift",
     "Show",
     "Stagger",
     "Timeline",

@@ -103,6 +103,9 @@ class Section:
         for previous, current in zip(actions, actions[1:], strict=False):
             previous_end = float(previous.end)
             current_start = float(current.start)
+        
+            if type(previous).__name__ == "LaggedStart"or type(previous).__name__ == "LaggedStart":
+                continue
 
             if current_start < previous_end:
                 raise ValueError(
