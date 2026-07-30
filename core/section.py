@@ -10,6 +10,7 @@ Una sección agrupa:
 
 from __future__ import annotations
 from dataclasses import dataclass, field
+from typing import Iterable
 
 from mathfilm.core.action import Action
 from mathfilm.core.narration import Narration
@@ -84,6 +85,40 @@ class Section:
         self.validate_schedule()
 
         return action
+
+    def add_actions(self, *actions: Action) -> tuple[Action, ...]:
+        """
+        Añade varias acciones a la sección.
+
+        Parameters
+        ----------
+        *actions
+            Acciones que serán añadidas en el orden recibido.
+
+        Returns
+        -------
+        tuple[Action, ...]
+            Las mismas acciones añadidas
+        """
+
+        for action in actions:
+            self.add_action(action)
+
+        return actions
+
+    def extend_actions(self, actions: Iterable[Action]) -> tuple[Action, ...]:
+        """
+        Añade acciones procedentes de cualquier iterable.
+
+        Este método resulta conveniente al construir acciones
+        mediante una compresión o un generador.
+        """
+
+        collected = tuple(actions)
+        self.add_actions(*collected)
+        
+        return collected
+        
 
     def validate_schedule(self) -> None:
         """

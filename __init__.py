@@ -1,10 +1,17 @@
 # mathfilm/__init__.py
 
 """
-Interfaz pública principal de MathFilm v0.7.0.
+Interfaz pública principal de MathFilm v0.8.0.
 """
 
 from mathfilm.actions.create import Create
+from mathfilm.actions.factories import (
+    create_all,
+    hide_all,
+    parallel,
+    show_all,
+    write_all,
+)
 from mathfilm.actions.hide import Hide
 from mathfilm.actions.move_to import MoveTo
 from mathfilm.actions.parallel import Parallel
@@ -29,7 +36,7 @@ from mathfilm.core.types import (
 )
 from mathfilm.engine.video_scene import VideoScene
 
-__version__ = "0.7.0"
+__version__ = "0.8.0"
 
 __all__ = [
     "Create",
@@ -54,4 +61,9 @@ __all__ = [
     "VideoScene",
     "WordsPerMinute",
     "Write",
+    "create_all",
+    "hide_all",
+    "parallel",
+    "show_all",
+    "write_all",
 ]

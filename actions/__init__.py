@@ -7,6 +7,13 @@ Acciones visuales disponibles en MathFilm.
 from mathfilm.actions.base import ManimAction
 from mathfilm.actions.composite import CompositeAction
 from mathfilm.actions.create import Create
+from mathfilm.actions.factories import (
+    create_all,
+    hide_all,
+    parallel,
+    show_all,
+    write_all,
+)
 from mathfilm.actions.hide import Hide
 from mathfilm.actions.move_to import MoveTo
 from mathfilm.actions.parallel import Parallel
@@ -40,4 +47,9 @@ __all__ = [
     "TargetAction",
     "Transform",
     "Write",
+    "create_all",
+    "hide_all",
+    "parallel",
+    "show_all",
+    "write_all",
 ]

@@ -8,6 +8,7 @@ from __future__ import annotations
 import manim
 
 
+from mathfilm.core.action import Action
 from mathfilm.core.director import Director
 from mathfilm.core.narration import Narration
 from mathfilm.core.section import Section
@@ -38,7 +39,7 @@ class VideoScene(manim.Scene):
         self.director = Director()
 
 
-    def section(self, narration: Narration) -> Section:
+    def section(self, narration: Narration, *, actions: tuple[Action, ...] = ()) -> Section:
         """
         Crea y registra una sección narrativa.
 
@@ -54,6 +55,7 @@ class VideoScene(manim.Scene):
         """
 
         section = Section(narration=narration)
+        section.add_actions(*actions)
         self.timeline.add_section(section)
         return section
 
