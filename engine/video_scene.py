@@ -13,9 +13,11 @@ from mathfilm.core.director import Director
 from mathfilm.core.narration import Narration
 from mathfilm.core.section import Section
 from mathfilm.core.timeline import Timeline
+from mathfilm.engine.ffprobe_audio_probe import FFprobeAudioProbe
 from mathfilm.engine.manim_scene_adapter import (
     ManimSceneAdapter,
 )
+from mathfilm.engine.narration_resolver import NarrationResolver
 
 
 class VideoScene(manim.Scene):
@@ -36,7 +38,12 @@ class VideoScene(manim.Scene):
         super().setup()
 
         self.timeline = Timeline()
-        self.director = Director()
+        narration_resolver = NarrationResolver(audio_probe=FFprobeAudioProbe())
+        self.director = Director(
+            timeline=self.timeline,
+            scene=ManimSceneAdapter(self),
+            narration_resolver=narration_resolver
+        )
 
 
     def section(self, narration: Narration, *, actions: tuple[Action, ...] = ()) -> Section:
@@ -65,8 +72,4 @@ class VideoScene(manim.Scene):
 
         Este método debe llamarse al final de ``construct()``.
         """
-        adapter = ManimSceneAdapter(self)
-        self.director.render(
-            timeline=self.timeline,
-            scene=adapter,
-        )
+        self.director.render()

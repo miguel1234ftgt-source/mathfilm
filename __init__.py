@@ -1,7 +1,7 @@
 # mathfilm/__init__.py
 
 """
-Interfaz pública principal de MathFilm v0.8.0.
+Interfaz pública principal de MathFilm v0.9.0.
 """
 
 from mathfilm.actions.create import Create
@@ -27,6 +27,7 @@ from mathfilm.actions.transform import Transform
 from mathfilm.actions.write import Write
 from mathfilm.core.narration import Narration
 from mathfilm.core.section import Section
+from mathfilm.core.section_timing import SectionTiming
 from mathfilm.core.timeline import Timeline
 from mathfilm.core.types import (
     Identifier,
@@ -36,7 +37,7 @@ from mathfilm.core.types import (
 )
 from mathfilm.engine.video_scene import VideoScene
 
-__version__ = "0.8.0"
+__version__ = "0.9.0"
 
 __all__ = [
     "Create",
@@ -50,6 +51,7 @@ __all__ = [
     "Scale",
     "Seconds",
     "Section",
+    "SectionTiming",
     "Sequence",
     "SetColor",
     "SetOpacity",

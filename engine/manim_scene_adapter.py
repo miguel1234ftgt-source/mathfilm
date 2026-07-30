@@ -9,9 +9,14 @@ directamente la biblioteca manim.
 from __future__ import annotations
 from typing import Any
 
+from pathlib import Path
+
+from mathfilm.core.types import Seconds
+from mathfilm.engine.scene_adapter import SceneAdapter
+
 import manim
 
-class ManimSceneAdapter:
+class ManimSceneAdapter(SceneAdapter):
     """
     Envuelve una instancia de ``manim.Scene``.
 
@@ -55,3 +60,15 @@ class ManimSceneAdapter:
         Elimina objetos sin animación.
         """
         self._scene.remove(*objects)
+    
+    def add_sound(self, path: Path) -> None:
+        """
+        Añade el audio en el instante actual de la escena.
+        """
+        print(
+            "[MathFilm] Añadiendo audio:",
+            path,
+            "en t =",
+            self._scene.time,
+        )
+        self._scene.add_sound(str(path))

@@ -10,23 +10,26 @@ el protocolo SceneAdapter
 """
 
 from __future__ import annotations
+from dataclasses import dataclass
 
 from mathfilm.core.section import Section
 from mathfilm.core.timeline import Timeline
 from mathfilm.core.types import Seconds
+from mathfilm.engine.narration_resolver import NarrationResolver
 from mathfilm.engine.scene_adapter import SceneAdapter
 
 
+@dataclass(slots=True)
 class Director:
     """
     Coordina la ejecución temporal de una línea narrativa.
     """
 
-    def render(
-        self,
-        timeline: Timeline,
-        scene: SceneAdapter,
-    ) -> None:
+    timeline: Timeline
+    scene: SceneAdapter
+    narration_resolver: NarrationResolver
+
+    def render(self) -> None:
         """
         Ejecuta todas las secciones en orden.
 
@@ -39,13 +42,65 @@ class Director:
             Adaptador del motor gráfico.
         """
 
-        for section in timeline.sections:
-            self._render_section(
+        for section in self.timeline.sections:
+            self.render_section(
                 section=section,
-                scene=scene,
             )
 
-    def _render_section(self, *, section: Section, scene: SceneAdapter) -> None:
+    def render_section(
+        self,
+        section: Section,
+    ) -> None:
+        """
+        Ejecuta una sección completa.
+        """
+
+        resolved = self.narration_resolver.resolve(section.narration)
+
+        timing = resolved.timing
+
+        # Margen externo anterior.
+        self.scene.wait(timing.padding_before)
+
+        print(
+            "[MathFilm] Narración:",
+            section.narration.identifier,
+        )
+        print(
+            "[MathFilm] Audio resuelto:",
+            resolved.audio,
+        )
+        print(
+            "[MathFilm] Duración activa:",
+            resolved.timing.active_duration,
+        )
+
+        # Audio y acciones comienzan en el mismo instante.
+        if resolved.audio is not None:
+            self.scene.add_sound(resolved.audio)
+
+        # Progress se resuelve exclusivamente respecto de
+        # active_duration.
+        self._render_actions(
+            section=section,
+            duration=timing.active_duration,
+        )
+
+        # Margen externo posterior.
+        self.scene.wait(timing.padding_after)
+
+    def _render_actions(self, *, section: Section, duration: Seconds) -> None:
+        """
+        Ejecuta las acciones durante la ventada activa.
+
+        Esta función debe conservar el algoritmo de planificación
+        existente. La diferencia es que recibe active_duration,
+        nunca total_duration
+        """
+
+        self._render_section(section=section, duration=duration)
+
+    def _render_section(self, *, section: Section, duration: Seconds) -> None:
         """
         Ejecuta una sección individual.
 
@@ -55,7 +110,7 @@ class Director:
 
         section.validate_schedule()
 
-        section_duration = section.duration
+        active_duration = duration
         cursor = 0.0
 
         for action in section.ordered_actions:
@@ -65,26 +120,25 @@ class Director:
             # una espera proporcional a la duración de la sección.
             if action_start > cursor:
                 relative_wait = action_start - cursor
-            
+
                 self._wait_relative(
-                    scene=scene,
-                    section_duration=section_duration,
+                    scene=self.scene,
+                    section_duration=active_duration,
                     relative_duration=relative_wait,
                 )
-            
+
             action.execute(
-                scene=scene,
-                duration=action.duration_for(section_duration)
+                scene=self.scene, duration=action.duration_for(active_duration)
             )
 
             cursor = float(action.end)
 
-        #si la última acción termina antes del final de la
-        #narración, esperamos el tiempo restante.
+        # si la última acción termina antes del final de la
+        # narración, esperamos el tiempo restante.
         if cursor < 1.0:
             self._wait_relative(
-                scene=scene,
-                section_duration=section_duration,
+                scene=self.scene,
+                section_duration=active_duration,
                 relative_duration=1.0 - cursor,
             )
 
@@ -101,7 +155,7 @@ class Director:
 
         seconds = float(section_duration) * relative_duration
 
-        #Manim acepta esperas positivas. Evitamos llamadas
-        #innecesarias causadas por errores de redondeo.
+        # Manim acepta esperas positivas. Evitamos llamadas
+        # innecesarias causadas por errores de redondeo.
         if seconds > 0.0:
             scene.wait(seconds)

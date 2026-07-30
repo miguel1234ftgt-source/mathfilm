@@ -8,6 +8,7 @@ las operaciones que MathFilm necesita realizar sobre una escena.
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any, Protocol
 
 class SceneAdapter(Protocol):
@@ -49,3 +50,8 @@ class SceneAdapter(Protocol):
         Elimina objetos inmediatamente de la escena.
         """
         ...
+
+    def add_sound(self, path: Path) -> None:
+        """
+        Indica la reproducción de un archivo de audio.
+        """
